@@ -1,0 +1,57 @@
+server:
+  port: 5000
+  ssl:
+    enabled: true
+    key-alias: employee_alias
+    key-store: classpath:employee.p12
+    key-store-password: root123
+    key-password: root123
+    key-store-type: PKCS12
+    trust-store: classpath:employee.jks
+    trust-store-password: root123
+    trust-store-type: JKS
+    client-auth: NONE
+
+spring:
+  application:
+    name: neosoft-employee-service
+
+employee-service-version : v1.0
+
+eureka:
+  instance:
+    hostname: localhost
+    securePortEnabled: true
+    securePort: ${server.port}
+    nonSecurePortEnabled: false
+    homePageUrl: https://${eureka.instance.hostname}:${eureka.instance.securePort}/
+    statusPageUrl: https://${eureka.instance.hostname}:${eureka.instance.securePort}/actuator/info
+    healthCheckUrl: https://${eureka.instance.hostname}:${eureka.instance.securePort}/actuator/health
+    metadataMap:
+      sslContextProvider: default
+      useGlobalSSLContext: true
+    #    secure-port: 443
+    #    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    tls:
+      enabled: true
+      key-store: classpath:employee.p12
+      key-store-password: root123
+      key-password: root123
+      key-store-type: PKCS12
+      trust-store: classpath:employee.jks
+      trust-store-password: root123
+      trust-store-type: JKS
+    service-url:
+      defaultZone: https://localhost:8761/eureka/
+
+
+
+
+#logging:
+#  level:
+#    root: trace
+
+

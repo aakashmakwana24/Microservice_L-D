@@ -1,0 +1,48 @@
+server:
+  port: 9000
+  ssl:
+    key-alias: department_alias
+    key-store: classpath:department.p12
+    key-password: 123456
+    key-store-password: 123456
+    key-store-type: PKCS12
+    trust-store: classpath:department.jks
+    trust-store-password: 123456
+    trust-store-type: JKS
+    client-auth: NONE
+
+spring:
+  application:
+    name: neosoft-department-service
+
+eureka:
+  instance:
+    hostname: localhost
+    securePortEnabled: true
+    securePort: ${server.port}
+    nonSecurePortEnabled: false
+    homePageUrl: https://${eureka.instance.hostname}:${eureka.instance.securePort}/
+    statusPageUrl: https://${eureka.instance.hostname}:${eureka.instance.securePort}/actuator/info
+    healthCheckUrl: https://${eureka.instance.hostname}:${eureka.instance.securePort}/actuator/health
+    metadataMap:
+      sslContextProvider: default
+      useGlobalSSLContext: true
+#    preferIpAddress: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    tls:
+      enabled: true
+      key-store: classpath:department.p12
+      key-store-password: 123456
+      key-password: 123456
+      key-store-type: PKCS12
+      trust-store: classpath:department.jks
+      trust-store-password: 123456
+      trust-store-type: JKS
+    service-url:
+      defaultZone: https://localhost:8761/eureka/
+
+
+
+department-service-version : v1.0

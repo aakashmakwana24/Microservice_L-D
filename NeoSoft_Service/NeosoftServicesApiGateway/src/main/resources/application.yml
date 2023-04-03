@@ -1,0 +1,28 @@
+server:
+  port: 9005
+
+spring:
+  application:
+    name: neosoft-api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: neosoft-employee-service
+          uri: lb://neosoft-employee-service
+          predicates:
+            - Path=/v1.0/employee/**
+        - id: neosoft-department-service
+          uri: lb://neosoft-department-service
+          predicates:
+            - Path=/v1.0/department/**
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://10.0.60.199:8761/eureka/
+
